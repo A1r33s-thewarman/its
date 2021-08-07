@@ -65,8 +65,7 @@ class ApiController extends Controller
 
        $issues = new Issue;
       if ($issues::where('id', $id)->exists()) {
-        $isseu_json = $issues::select('issues.*', 'comments.*', 'issue_categories.*', 'issue_sub_categories.*')
-        ->join('comments', 'comments.issue_id', '=', 'issues.id')
+        $isseu_json = $issues::select('issues.*', 'issue_categories.*', 'issue_sub_categories.*')
         ->join('issue_categories', 'issue_categories.issue_id', '=', 'issues.id')
         ->join('issue_sub_categories', 'issue_sub_categories.issue_id', '=', 'issues.id')
         ->where('issues.id', $id)->get()->toJson(JSON_PRETTY_PRINT);
@@ -81,11 +80,60 @@ class ApiController extends Controller
 
     public function updateIssue(Request $request, $id) {
       // logic to update an Issue record goes here
+      $issues = new Issue;
+      if ($issues::where('id', $id)->exists()) {
+        $issues = $issues::find($id);
+        $issues->title = is_null($request->title) ? $issues->title : $request->title;
+        $issues->body = is_null($request->body) ? $issues->body : $request->body;
+        $issues->uuid = is_null($request->uuid) ? $issues->uuid : $request->uuid;
+        $issues->slug = is_null($request->slug) ? $issues->slug : $request->slug;
+        $issues->save();
+
+        return response()->json([
+            "message" => "records updated successfully"
+        ], 200);
+        } else {
+        return response()->json([
+            "message" => "Issue not found"
+        ], 404);
+        
+    }
     }
 
     public function deleteIssue ($id) {
       // logic to delete an Issue record goes here
+    $issues = new Issue;
+    $comment = new comments;
+    $issue_Categories = new issue_Categories;
+    $issue_subCategories = new issue_subCategories;
+    $images = new images;
+
+    if($issues::where('id', $id)->exists()) {
+        $issues_del = $issues::find($id);
+        $issues_del->delete();
+
+        $comment_del = $comment::find($id);
+        $comment_del->delete();
+
+        $issue_Categories_del = $issue_Categories::find($id);
+        $issue_Categories_del->delete();
+
+        $issue_subCategories_del = $issue_subCategories::find($id);
+        $issue_subCategories->delete();
+
+        $images_del = $images::find($id);
+        $images_del->delete();
+
+        return response()->json([
+          "message" => "Issue deleted"
+        ], 202);
+      } else {
+        return response()->json([
+          "message" => "Issue not found"
+        ], 404);
+      }
     }
+    
 
 
      public function createCategory(Request $request) {

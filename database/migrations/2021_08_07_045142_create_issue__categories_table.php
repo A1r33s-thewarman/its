@@ -13,6 +13,9 @@ class CreateIssueCategoriesTable extends Migration
      */
     public function up()
     {
+
+    //create issue__categories table
+
         Schema::create('issue_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('issue_id');

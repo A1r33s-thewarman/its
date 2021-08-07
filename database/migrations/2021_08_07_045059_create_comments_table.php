@@ -13,6 +13,8 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
+
+    //create comments table
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('issue_id');

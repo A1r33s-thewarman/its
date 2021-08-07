@@ -13,6 +13,8 @@ class CreateIssuesTable extends Migration
      */
     public function up()
     {
+
+    //create issue table
         Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');

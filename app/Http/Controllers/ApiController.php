@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
 use App\Models\Issue;
 use App\Models\Categories;
 use App\Models\subCategories;
@@ -18,7 +19,7 @@ class ApiController extends Controller
 
 
 
-    public function createIssue(Request $request) {
+    public function createIssue(StorePostRequest $request) {
       // logic to create an Issue record goes here
 
     $issues = new Issue;
@@ -78,7 +79,7 @@ class ApiController extends Controller
 
     }
 
-    public function updateIssue(Request $request, $id) {
+    public function updateIssue(StorePostRequest $request, $id) {
       // logic to update an Issue record goes here
       $issues = new Issue;
       if ($issues::where('id', $id)->exists()) {

@@ -9,6 +9,6 @@
     "\\database\\migrations",
     "\\routes"
   ],
-  "SelectedNode": "\\app\\Models\\Categories.php",
+  "SelectedNode": "\\app\\Http\\Controllers\\ApiController.php",
   "PreviewInSolutionExplorer": false
 }

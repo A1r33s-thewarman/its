@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class issue_subCategories extends Model
 {
-        protected $table = 'issue_sub_categories';
-
+    //specify table name and columns
+    protected $table = 'issue_sub_categories';
     protected $fillable = ['issue_id', 'subcategory_id'];
 }
